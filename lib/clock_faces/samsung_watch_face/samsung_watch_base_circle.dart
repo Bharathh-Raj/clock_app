@@ -1,13 +1,10 @@
-import 'dart:math' as math;
 import 'dart:ui' as ui;
-import 'dart:ui';
 
+import 'package:clock_app/core/constants/constants.dart';
+import 'package:clock_app/core/get_offset.dart';
 import 'package:flutter/material.dart';
 
-class SamsungWatchFace extends CustomPainter {
-  static const int _numberOfMintues = 60;
-  static const double _angleBetweenMinutePointers = (2 * math.pi) / _numberOfMintues;
-
+class SamsungWatchBaseCircle extends CustomPainter {
   final double spaceBeyondMinuteLine;
   final double minuteLineLength;
   final double minuteLineDivBy5Length;
@@ -15,11 +12,12 @@ class SamsungWatchFace extends CustomPainter {
   late final double _baseCircleRadius;
   late final double _canvasSide;
   late final double _minuteLineExtremePointRadius;
-  SamsungWatchFace({
-    this.spaceBeyondMinuteLine = 4,
-    this.minuteLineLength = 4,
-    this.minuteLineDivBy5Length = 7,
-    this.minuteLineDivBy15Length = 10,
+
+  SamsungWatchBaseCircle({
+    required this.spaceBeyondMinuteLine,
+    required this.minuteLineLength,
+    required this.minuteLineDivBy5Length,
+    required this.minuteLineDivBy15Length,
   });
 
   @override
@@ -33,8 +31,6 @@ class SamsungWatchFace extends CustomPainter {
     _drawBaseCircle(canvas);
     _drawMinutesLine(canvas);
     _drawCenterCircle(canvas);
-    // _drawHoursHand(canvas, _side);
-    _drawMinuteHand(canvas);
     canvas.restore();
   }
 
@@ -55,22 +51,18 @@ class SamsungWatchFace extends CustomPainter {
       ..strokeWidth = 2
       ..strokeCap = StrokeCap.round
       ..style = PaintingStyle.stroke;
-    for (int minute = 1; minute <= _numberOfMintues; minute++) {
-      final double _theta = _angleBetweenMinutePointers * minute;
+    for (int minute = 1; minute <= Constants.numberOfMinutes; minute++) {
+      final double _theta = Constants.angleBetweenEachMinuteLine * minute;
       final double _radiusOfInnerPoint = _getInnerPointRadiusOfMinuteLine(minute);
 
-      final Offset _extremePoint = _getOffsetWithRadiusAndTheta(radius: _minuteLineExtremePointRadius, theta: _theta);
-      final Offset _innerPoint = _getOffsetWithRadiusAndTheta(radius: _radiusOfInnerPoint, theta: _theta);
+      final Offset _extremePoint =
+          GetOffset.getOffsetWithRadiusAndTheta(radius: _minuteLineExtremePointRadius, theta: _theta);
+      final Offset _innerPoint = GetOffset.getOffsetWithRadiusAndTheta(radius: _radiusOfInnerPoint, theta: _theta);
       canvas.drawLine(_extremePoint, _innerPoint, _paint);
       if (minute % 5 == 0) {
         _drawMinuteText(minute: minute, canvas: canvas, theta: _theta);
       }
     }
-  }
-
-  Offset _getOffsetWithRadiusAndTheta({required double radius, required double theta}) {
-    theta = theta - (math.pi / 2);
-    return Offset(radius * math.cos(theta), radius * math.sin(theta));
   }
 
   double _getInnerPointRadiusOfMinuteLine(int minute) {
@@ -93,20 +85,8 @@ class SamsungWatchFace extends CustomPainter {
     );
     tp.layout();
     final Offset _pointToPositionText =
-        _getOffsetWithRadiusAndTheta(radius: _getInnerPointRadiusOfMinuteLine(minute) - 12, theta: theta);
+        GetOffset.getOffsetWithRadiusAndTheta(radius: _getInnerPointRadiusOfMinuteLine(minute) - 12, theta: theta);
     tp.paint(canvas, Offset(_pointToPositionText.dx - tp.width / 2, _pointToPositionText.dy - tp.height / 2));
-  }
-
-  void _drawMinuteHand(Canvas canvas) {
-    final Paint _paint = Paint()
-      ..style = PaintingStyle.fill
-      ..strokeWidth = 8
-      ..strokeCap = ui.StrokeCap.round
-      ..color = Colors.white;
-
-    final double _minuteHandLength = 100;
-    canvas.drawLine(Offset(0, 0),
-        _getOffsetWithRadiusAndTheta(radius: _minuteHandLength, theta: 30 * _angleBetweenMinutePointers), _paint);
   }
 
   void _drawCenterCircle(Canvas canvas) {
@@ -117,15 +97,6 @@ class SamsungWatchFace extends CustomPainter {
     canvas.drawCircle(Offset(0, 0), 8, _paint);
   }
 
-  void _drawHoursHand(Canvas canvas, double side) {
-    final Paint _paint = Paint()
-      ..style = PaintingStyle.fill
-      ..strokeWidth = 8
-      ..strokeCap = ui.StrokeCap.round
-      ..color = Colors.white;
-    canvas.drawLine(Offset(50, 50), Offset(side / 2, side / 2), _paint);
-  }
-
   @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }

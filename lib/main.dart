@@ -1,4 +1,4 @@
-import 'package:clock_app/clock_faces/samsung_watch_face.dart';
+import 'package:clock_app/clock_faces/samsung_watch_face/samsung_watch.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -25,12 +25,11 @@ class MyHomePage extends StatelessWidget {
     return Scaffold(
         backgroundColor: Colors.black12,
         body: Center(
-          child: SizedBox(
-            height: 300,
-            width: 300,
-            child: CustomPaint(
-              painter: SamsungWatchFace(),
-            ),
+          child: SamsungWatch(
+            clockRadius: 150,
+            hourHandLength: 75,
+            minuteHandLength: 90,
+            secondHandLength: 100,
           ),
         ));
   }
