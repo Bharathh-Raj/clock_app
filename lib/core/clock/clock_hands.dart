@@ -43,7 +43,7 @@ class ClockHands extends CustomPainter {
   void _drawHoursHand(Canvas canvas) {
     final Paint _paint = Paint()
       ..style = PaintingStyle.fill
-      ..strokeWidth = 8
+      ..strokeWidth = 6
       ..strokeCap = ui.StrokeCap.round
       ..color = Colors.white;
 
@@ -57,7 +57,7 @@ class ClockHands extends CustomPainter {
   void _drawMinuteHand(Canvas canvas) {
     final Paint _paint = Paint()
       ..style = PaintingStyle.fill
-      ..strokeWidth = 8
+      ..strokeWidth = 6
       ..strokeCap = ui.StrokeCap.round
       ..color = Colors.white;
 

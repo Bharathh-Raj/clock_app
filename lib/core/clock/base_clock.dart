@@ -103,8 +103,8 @@ class BaseClock extends CustomPainter {
   void _drawCenterCircle(Canvas canvas) {
     final Paint _paint = Paint()
       ..color = Colors.white
-      ..strokeWidth = 8
-      ..style = PaintingStyle.stroke;
+      // ..strokeWidth = 6
+      ..style = PaintingStyle.fill;
     canvas.drawCircle(Offset(0, 0), 8, _paint);
   }
 

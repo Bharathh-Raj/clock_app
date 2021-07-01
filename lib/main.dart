@@ -26,12 +26,10 @@ class MyHomePage extends StatelessWidget {
         backgroundColor: Colors.black12,
         body: Center(
           child: SamsungWatch(
-            clockRadius: 150,
-            hourHandLength: 75,
-            minuteHandLength: 90,
-            secondHandLength: 100,
-            showClockFrame: true,
-            clockFrameStrokeWidth: 8,
+            clockRadius: 120,
+            hourHandLength: 60,
+            minuteHandLength: 80,
+            secondHandLength: 85,
           ),
         ));
   }
