@@ -71,7 +71,7 @@ class BaseClock extends CustomPainter {
       final Offset _innerPoint = GetOffset.getOffsetWithRadiusAndTheta(radius: _radiusOfInnerPoint, theta: _theta);
       canvas.drawLine(_extremePoint, _innerPoint, _paint);
       if (minute % 5 == 0) {
-        _drawMinuteText(minute: minute, canvas: canvas, theta: _theta);
+        _drawHourText(minute: minute, canvas: canvas, theta: _theta);
       }
     }
   }
@@ -85,10 +85,10 @@ class BaseClock extends CustomPainter {
                 : minuteLineLength);
   }
 
-  void _drawMinuteText({required Canvas canvas, required int minute, required double theta}) {
+  void _drawHourText({required Canvas canvas, required int minute, required double theta}) {
     final double fontSize = 12.0;
     TextSpan span =
-        new TextSpan(style: new TextStyle(color: Colors.white, fontSize: fontSize), text: minute.toString());
+        new TextSpan(style: new TextStyle(color: Colors.white, fontSize: fontSize), text: (minute ~/ 5).toString());
     TextPainter tp = new TextPainter(
       text: span,
       textAlign: TextAlign.center,
