@@ -54,13 +54,11 @@ class SamsungWatchHands extends CustomPainter {
       ..strokeCap = ui.StrokeCap.round
       ..color = Colors.white;
 
+    final double _minuteHandTheta = (dateTime.minute * Constants.angleBetweenEachMinuteLine) +
+        (Constants.angleBetweenEachMinuteLine * ((1 / Constants.numberOfSeconds) * dateTime.second));
+
     canvas.drawLine(
-        Offset(0, 0),
-        GetOffset.getOffsetWithRadiusAndTheta(
-            radius: minuteHandLength,
-            theta: (dateTime.minute * Constants.angleBetweenEachMinuteLine) +
-                (Constants.angleBetweenEachMinuteLine * ((1 / Constants.numberOfSeconds) * dateTime.second))),
-        _paint);
+        Offset(0, 0), GetOffset.getOffsetWithRadiusAndTheta(radius: minuteHandLength, theta: _minuteHandTheta), _paint);
   }
 
   void _drawSecondHand(Canvas canvas) {
