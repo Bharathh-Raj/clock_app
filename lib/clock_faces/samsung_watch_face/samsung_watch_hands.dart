@@ -10,11 +10,10 @@ class SamsungWatchHands extends CustomPainter {
   final double minuteHandLength;
   final double secondHandLength;
   final DateTime dateTime;
-
-  late final double _canvasSide;
-  late final double _baseCircleRadius;
+  final double clockRadius;
 
   SamsungWatchHands({
+    required this.clockRadius,
     required this.dateTime,
     required this.minuteHandLength,
     required this.hourHandLength,
@@ -23,12 +22,11 @@ class SamsungWatchHands extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    _canvasSide = size.height;
-    _baseCircleRadius = _canvasSide / 2;
-    assert(_baseCircleRadius >= minuteHandLength, "Minute hand length cannot be greater than Radius");
-    assert(_baseCircleRadius >= hourHandLength, "Hour hand length cannot be greater than Radius");
+    assert(clockRadius >= minuteHandLength, "Minute hand length cannot be greater than Radius");
+    assert(clockRadius >= hourHandLength, "Hour hand length cannot be greater than Radius");
+    assert(clockRadius * 2 <= size.width, "Canvas size is not enough to accommodate watch with radius of $clockRadius");
     canvas.save();
-    canvas.translate(_baseCircleRadius, _baseCircleRadius);
+    canvas.translate(clockRadius, clockRadius);
     _drawHoursHand(canvas);
     _drawMinuteHand(canvas);
     _drawSecondHand(canvas);

@@ -33,8 +33,8 @@ class _SamsungWatchState extends State<SamsungWatch> {
   @override
   void initState() {
     _currentTime = DateTime.now();
-    _timer = Stream.periodic(const Duration(seconds: 1), (second) {
-      _currentTime.add(const Duration(seconds: 1));
+    _timer = Stream.periodic(Duration(seconds: 1), (second) {
+      _currentTime = DateTime.now();
       return _currentTime;
     });
     super.initState();
@@ -48,6 +48,7 @@ class _SamsungWatchState extends State<SamsungWatch> {
       child: CustomPaint(
         size: Size(widget.clockRadius * 2, widget.clockRadius * 2),
         painter: SamsungWatchBaseCircle(
+          clockRadius: widget.clockRadius,
           minuteLineLength: widget.minuteLineLength,
           minuteLineDivBy5Length: widget.minuteLineDivBy5Length,
           minuteLineDivBy15Length: widget.minuteLineDivBy15Length,
@@ -59,6 +60,7 @@ class _SamsungWatchState extends State<SamsungWatch> {
           builder: (context, snapshot) {
             return CustomPaint(
               painter: SamsungWatchHands(
+                clockRadius: widget.clockRadius,
                 dateTime: _currentTime,
                 hourHandLength: widget.hourHandLength,
                 minuteHandLength: widget.minuteHandLength,

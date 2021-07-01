@@ -9,25 +9,23 @@ class SamsungWatchBaseCircle extends CustomPainter {
   final double minuteLineLength;
   final double minuteLineDivBy5Length;
   final double minuteLineDivBy15Length;
-  late final double _baseCircleRadius;
-  late final double _canvasSide;
+  final double clockRadius;
   late final double _minuteLineExtremePointRadius;
 
   SamsungWatchBaseCircle({
+    required this.clockRadius,
     required this.spaceBeyondMinuteLine,
     required this.minuteLineLength,
     required this.minuteLineDivBy5Length,
     required this.minuteLineDivBy15Length,
-  });
+  }) : _minuteLineExtremePointRadius = clockRadius - spaceBeyondMinuteLine;
 
   @override
   void paint(Canvas canvas, Size size) {
     assert(size.height == size.width, "Height and width should be equal since the face is round");
-    _canvasSide = size.height;
-    _baseCircleRadius = _canvasSide / 2;
-    _minuteLineExtremePointRadius = _baseCircleRadius - spaceBeyondMinuteLine;
+    assert(clockRadius * 2 <= size.width, "Canvas size is not enough to accommodate watch with radius of $clockRadius");
     canvas.save();
-    canvas.translate(_baseCircleRadius, _baseCircleRadius);
+    canvas.translate(clockRadius, clockRadius);
     _drawBaseCircle(canvas);
     _drawMinutesLine(canvas);
     _drawCenterCircle(canvas);
@@ -37,12 +35,12 @@ class SamsungWatchBaseCircle extends CustomPainter {
   void _drawBaseCircle(Canvas canvas) {
     final Paint _paint = Paint()
       ..shader = ui.Gradient.linear(
-        Offset(0, -_baseCircleRadius),
-        Offset(0, _baseCircleRadius),
+        Offset(0, -clockRadius),
+        Offset(0, clockRadius),
         [Color(0xff7f00ff), Color(0xffE100FF)],
       )
       ..style = PaintingStyle.fill;
-    canvas.drawCircle(Offset(0, 0), _baseCircleRadius, _paint);
+    canvas.drawCircle(Offset(0, 0), clockRadius, _paint);
   }
 
   void _drawMinutesLine(Canvas canvas) {
