@@ -2,7 +2,7 @@ import 'package:clock_app/core/clock/base_clock.dart';
 import 'package:clock_app/core/clock/clock_hands.dart';
 import 'package:flutter/material.dart';
 
-class SamsungWatch extends StatefulWidget {
+class Clock extends StatefulWidget {
   final double clockRadius;
   final double spaceBeyondMinuteLine;
   final double minuteLineLength;
@@ -11,17 +11,34 @@ class SamsungWatch extends StatefulWidget {
   final double hourHandLength;
   final double minuteHandLength;
   final double secondHandLength;
+  final double hourHandStrokeWidth;
+  final double minuteHandStrokeWidth;
+  final double secondHandStrokeWidth;
 
   final bool showSecondHand;
   final bool showMinuteHand;
   final bool showHourHand;
+  final bool showMinuteLines;
+
+  final Color hourHandColor;
+  final Color minuteHandColor;
+  final Color secondHandColor;
 
   final bool showClockFrame;
   final double clockFrameStrokeWidth;
 
-  const SamsungWatch({
+  final List<Color> gradientColorList;
+
+  const Clock({
     Key? key,
     required this.clockRadius,
+    required this.gradientColorList,
+    required this.hourHandStrokeWidth,
+    required this.minuteHandStrokeWidth,
+    required this.secondHandStrokeWidth,
+    this.hourHandColor = Colors.white,
+    this.minuteHandColor = Colors.white,
+    this.secondHandColor = Colors.white,
     this.spaceBeyondMinuteLine = 4,
     this.minuteLineLength = 4,
     this.minuteLineDivBy5Length = 7,
@@ -29,6 +46,7 @@ class SamsungWatch extends StatefulWidget {
     this.minuteHandLength = 0,
     this.hourHandLength = 0,
     this.secondHandLength = 0,
+    this.showMinuteLines = true,
     this.showSecondHand = true,
     this.showMinuteHand = true,
     this.showHourHand = true,
@@ -37,10 +55,10 @@ class SamsungWatch extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _SamsungWatchState createState() => _SamsungWatchState();
+  _ClockState createState() => _ClockState();
 }
 
-class _SamsungWatchState extends State<SamsungWatch> {
+class _ClockState extends State<Clock> {
   late DateTime _currentTime;
   late final Stream<DateTime> _timer;
   @override
@@ -61,6 +79,7 @@ class _SamsungWatchState extends State<SamsungWatch> {
       child: CustomPaint(
         size: Size(widget.clockRadius * 2, widget.clockRadius * 2),
         painter: BaseClock(
+          showMinuteLines: widget.showMinuteLines,
           clockRadius: widget.clockRadius,
           minuteLineLength: widget.minuteLineLength,
           minuteLineDivBy5Length: widget.minuteLineDivBy5Length,
@@ -68,6 +87,7 @@ class _SamsungWatchState extends State<SamsungWatch> {
           spaceBeyondMinuteLine: widget.spaceBeyondMinuteLine,
           showClockFrame: widget.showClockFrame,
           clockFrameStrokeWidth: widget.clockFrameStrokeWidth,
+          gradientColorList: widget.gradientColorList,
         ),
         willChange: false,
         child: StreamBuilder(
@@ -83,6 +103,12 @@ class _SamsungWatchState extends State<SamsungWatch> {
                 showHourHand: widget.showHourHand,
                 showMinuteHand: widget.showMinuteHand,
                 showSecondHand: widget.showSecondHand,
+                hourHandStrokeWidth: widget.hourHandStrokeWidth,
+                minuteHandStrokeWidth: widget.minuteHandStrokeWidth,
+                secondHandStrokeWidth: widget.secondHandStrokeWidth,
+                hourHandColor: widget.hourHandColor,
+                secondHandColor: widget.secondHandColor,
+                minuteHandColor: widget.minuteHandColor,
               ),
               willChange: true,
             );

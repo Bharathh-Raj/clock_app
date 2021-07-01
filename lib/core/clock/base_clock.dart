@@ -12,6 +12,8 @@ class BaseClock extends CustomPainter {
   final double clockRadius;
   final bool showClockFrame;
   final double clockFrameStrokeWidth;
+  final List<Color> gradientColorList;
+  final bool showMinuteLines;
   late final double _minuteLineExtremePointRadius;
 
   BaseClock({
@@ -22,6 +24,8 @@ class BaseClock extends CustomPainter {
     required this.minuteLineDivBy5Length,
     required this.minuteLineDivBy15Length,
     required this.clockFrameStrokeWidth,
+    required this.gradientColorList,
+    required this.showMinuteLines,
   }) : _minuteLineExtremePointRadius = clockRadius - spaceBeyondMinuteLine;
 
   @override
@@ -32,7 +36,7 @@ class BaseClock extends CustomPainter {
     canvas.translate(clockRadius, clockRadius);
     _drawBaseCircle(canvas);
     if (showClockFrame) _drawClockFrame(canvas);
-    _drawMinutesLine(canvas);
+    if (showMinuteLines) _drawMinutesLine(canvas);
     _drawCenterCircle(canvas);
     canvas.restore();
   }
@@ -42,10 +46,16 @@ class BaseClock extends CustomPainter {
       ..shader = ui.Gradient.linear(
         Offset(0, -clockRadius),
         Offset(0, clockRadius),
-        [Color(0xff7f00ff), Color(0xffE100FF)],
+        gradientColorList,
       )
       ..style = PaintingStyle.fill;
     canvas.drawCircle(Offset(0, 0), clockRadius, _paint);
+  }
+
+  void _drawShadow(Canvas canvas) {
+    final Path path = Path();
+    path.addOval(Rect.fromCircle(center: Offset(0, 0), radius: clockRadius + 24));
+    canvas.drawShadow(path, Color(0xff000000), 3, true);
   }
 
   void _drawClockFrame(Canvas canvas) {

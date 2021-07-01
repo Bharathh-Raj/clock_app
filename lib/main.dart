@@ -1,5 +1,7 @@
-import 'package:clock_app/clock_faces/samsung_watch_face/samsung_watch.dart';
+import 'package:clock_app/clock_faces/samsung_clock_face.dart';
 import 'package:flutter/material.dart';
+
+import 'clock_faces/material_clock_face.dart';
 
 void main() {
   runApp(MyApp());
@@ -22,15 +24,11 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: Colors.black12,
-        body: Center(
-          child: SamsungWatch(
-            clockRadius: 120,
-            hourHandLength: 60,
-            minuteHandLength: 80,
-            secondHandLength: 85,
-          ),
-        ));
+    return PageView(
+      children: [
+        MaterialClockFace(),
+        SamsungClockFace(),
+      ],
+    );
   }
 }

@@ -9,6 +9,12 @@ class ClockHands extends CustomPainter {
   final double hourHandLength;
   final double minuteHandLength;
   final double secondHandLength;
+  final double hourHandStrokeWidth;
+  final double minuteHandStrokeWidth;
+  final double secondHandStrokeWidth;
+  final Color hourHandColor;
+  final Color minuteHandColor;
+  final Color secondHandColor;
   final DateTime dateTime;
   final double clockRadius;
 
@@ -17,6 +23,12 @@ class ClockHands extends CustomPainter {
   final bool showHourHand;
 
   ClockHands({
+    required this.hourHandStrokeWidth,
+    required this.minuteHandStrokeWidth,
+    required this.secondHandStrokeWidth,
+    required this.minuteHandColor,
+    required this.secondHandColor,
+    required this.hourHandColor,
     required this.clockRadius,
     required this.dateTime,
     required this.minuteHandLength,
@@ -43,9 +55,9 @@ class ClockHands extends CustomPainter {
   void _drawHoursHand(Canvas canvas) {
     final Paint _paint = Paint()
       ..style = PaintingStyle.fill
-      ..strokeWidth = 6
+      ..strokeWidth = hourHandStrokeWidth
       ..strokeCap = ui.StrokeCap.round
-      ..color = Colors.white;
+      ..color = hourHandColor;
 
     final double _hourHandTheta = ((dateTime.hour % 12) * Constants.angleBetweenEachHourLine) +
         (Constants.angleBetweenEachHourLine * ((1 / Constants.numberOfMinutes) * dateTime.minute));
@@ -57,9 +69,9 @@ class ClockHands extends CustomPainter {
   void _drawMinuteHand(Canvas canvas) {
     final Paint _paint = Paint()
       ..style = PaintingStyle.fill
-      ..strokeWidth = 6
+      ..strokeWidth = minuteHandStrokeWidth
       ..strokeCap = ui.StrokeCap.round
-      ..color = Colors.white;
+      ..color = minuteHandColor;
 
     final double _minuteHandTheta = (dateTime.minute * Constants.angleBetweenEachMinuteLine) +
         (Constants.angleBetweenEachMinuteLine * ((1 / Constants.numberOfSeconds) * dateTime.second));
@@ -71,9 +83,9 @@ class ClockHands extends CustomPainter {
   void _drawSecondHand(Canvas canvas) {
     final Paint _paint = Paint()
       ..style = PaintingStyle.fill
-      ..strokeWidth = 2
+      ..strokeWidth = secondHandStrokeWidth
       ..strokeCap = ui.StrokeCap.round
-      ..color = Colors.white;
+      ..color = secondHandColor;
 
     canvas.drawLine(
         Offset(0, 0),
