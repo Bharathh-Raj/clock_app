@@ -30,6 +30,8 @@ class MyHomePage extends StatelessWidget {
             hourHandLength: 75,
             minuteHandLength: 90,
             secondHandLength: 100,
+            showClockFrame: true,
+            clockFrameStrokeWidth: 8,
           ),
         ));
   }

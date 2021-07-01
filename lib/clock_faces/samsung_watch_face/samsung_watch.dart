@@ -1,5 +1,5 @@
-import 'package:clock_app/clock_faces/samsung_watch_face/samsung_watch_base_circle.dart';
-import 'package:clock_app/clock_faces/samsung_watch_face/samsung_watch_hands.dart';
+import 'package:clock_app/core/clock/base_clock.dart';
+import 'package:clock_app/core/clock/clock_hands.dart';
 import 'package:flutter/material.dart';
 
 class SamsungWatch extends StatefulWidget {
@@ -11,6 +11,14 @@ class SamsungWatch extends StatefulWidget {
   final double hourHandLength;
   final double minuteHandLength;
   final double secondHandLength;
+
+  final bool showSecondHand;
+  final bool showMinuteHand;
+  final bool showHourHand;
+
+  final bool showClockFrame;
+  final double clockFrameStrokeWidth;
+
   const SamsungWatch({
     Key? key,
     required this.clockRadius,
@@ -21,6 +29,11 @@ class SamsungWatch extends StatefulWidget {
     this.minuteHandLength = 0,
     this.hourHandLength = 0,
     this.secondHandLength = 0,
+    this.showSecondHand = true,
+    this.showMinuteHand = true,
+    this.showHourHand = true,
+    this.showClockFrame = false,
+    this.clockFrameStrokeWidth = 2,
   }) : super(key: key);
 
   @override
@@ -43,28 +56,33 @@ class _SamsungWatchState extends State<SamsungWatch> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: widget.clockRadius * 2,
-      width: widget.clockRadius * 2,
+      height: (widget.clockRadius * 2) + widget.clockFrameStrokeWidth,
+      width: (widget.clockRadius * 2) + widget.clockFrameStrokeWidth,
       child: CustomPaint(
         size: Size(widget.clockRadius * 2, widget.clockRadius * 2),
-        painter: SamsungWatchBaseCircle(
+        painter: BaseClock(
           clockRadius: widget.clockRadius,
           minuteLineLength: widget.minuteLineLength,
           minuteLineDivBy5Length: widget.minuteLineDivBy5Length,
           minuteLineDivBy15Length: widget.minuteLineDivBy15Length,
           spaceBeyondMinuteLine: widget.spaceBeyondMinuteLine,
+          showClockFrame: widget.showClockFrame,
+          clockFrameStrokeWidth: widget.clockFrameStrokeWidth,
         ),
         willChange: false,
         child: StreamBuilder(
           stream: _timer,
           builder: (context, snapshot) {
             return CustomPaint(
-              painter: SamsungWatchHands(
+              painter: ClockHands(
                 clockRadius: widget.clockRadius,
                 dateTime: _currentTime,
                 hourHandLength: widget.hourHandLength,
                 minuteHandLength: widget.minuteHandLength,
                 secondHandLength: widget.secondHandLength,
+                showHourHand: widget.showHourHand,
+                showMinuteHand: widget.showMinuteHand,
+                showSecondHand: widget.showSecondHand,
               ),
               willChange: true,
             );

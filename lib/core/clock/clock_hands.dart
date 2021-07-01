@@ -5,19 +5,26 @@ import 'package:clock_app/core/get_offset.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class SamsungWatchHands extends CustomPainter {
+class ClockHands extends CustomPainter {
   final double hourHandLength;
   final double minuteHandLength;
   final double secondHandLength;
   final DateTime dateTime;
   final double clockRadius;
 
-  SamsungWatchHands({
+  final bool showSecondHand;
+  final bool showMinuteHand;
+  final bool showHourHand;
+
+  ClockHands({
     required this.clockRadius,
     required this.dateTime,
     required this.minuteHandLength,
     required this.hourHandLength,
     required this.secondHandLength,
+    required this.showSecondHand,
+    required this.showMinuteHand,
+    required this.showHourHand,
   });
 
   @override
@@ -27,9 +34,9 @@ class SamsungWatchHands extends CustomPainter {
     assert(clockRadius * 2 <= size.width, "Canvas size is not enough to accommodate watch with radius of $clockRadius");
     canvas.save();
     canvas.translate(clockRadius, clockRadius);
-    _drawHoursHand(canvas);
-    _drawMinuteHand(canvas);
-    _drawSecondHand(canvas);
+    if (showHourHand) _drawHoursHand(canvas);
+    if (showMinuteHand) _drawMinuteHand(canvas);
+    if (showSecondHand) _drawSecondHand(canvas);
     canvas.restore();
   }
 
@@ -76,5 +83,5 @@ class SamsungWatchHands extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant SamsungWatchHands oldDelegate) => dateTime.second != oldDelegate.dateTime.second;
+  bool shouldRepaint(covariant ClockHands oldDelegate) => dateTime.second != oldDelegate.dateTime.second;
 }

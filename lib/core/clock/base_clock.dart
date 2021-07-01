@@ -4,20 +4,24 @@ import 'package:clock_app/core/constants/constants.dart';
 import 'package:clock_app/core/get_offset.dart';
 import 'package:flutter/material.dart';
 
-class SamsungWatchBaseCircle extends CustomPainter {
+class BaseClock extends CustomPainter {
   final double spaceBeyondMinuteLine;
   final double minuteLineLength;
   final double minuteLineDivBy5Length;
   final double minuteLineDivBy15Length;
   final double clockRadius;
+  final bool showClockFrame;
+  final double clockFrameStrokeWidth;
   late final double _minuteLineExtremePointRadius;
 
-  SamsungWatchBaseCircle({
+  BaseClock({
     required this.clockRadius,
+    required this.showClockFrame,
     required this.spaceBeyondMinuteLine,
     required this.minuteLineLength,
     required this.minuteLineDivBy5Length,
     required this.minuteLineDivBy15Length,
+    required this.clockFrameStrokeWidth,
   }) : _minuteLineExtremePointRadius = clockRadius - spaceBeyondMinuteLine;
 
   @override
@@ -27,6 +31,7 @@ class SamsungWatchBaseCircle extends CustomPainter {
     canvas.save();
     canvas.translate(clockRadius, clockRadius);
     _drawBaseCircle(canvas);
+    if (showClockFrame) _drawClockFrame(canvas);
     _drawMinutesLine(canvas);
     _drawCenterCircle(canvas);
     canvas.restore();
@@ -41,6 +46,14 @@ class SamsungWatchBaseCircle extends CustomPainter {
       )
       ..style = PaintingStyle.fill;
     canvas.drawCircle(Offset(0, 0), clockRadius, _paint);
+  }
+
+  void _drawClockFrame(Canvas canvas) {
+    final Paint _paint = Paint()
+      ..strokeWidth = clockFrameStrokeWidth
+      ..color = Colors.white
+      ..style = PaintingStyle.stroke;
+    canvas.drawCircle(Offset(0, 0), clockRadius + clockFrameStrokeWidth / 2, _paint);
   }
 
   void _drawMinutesLine(Canvas canvas) {
