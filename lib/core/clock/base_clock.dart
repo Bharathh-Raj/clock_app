@@ -37,7 +37,6 @@ class BaseClock extends CustomPainter {
     _drawBaseCircle(canvas);
     if (showClockFrame) _drawClockFrame(canvas);
     if (showMinuteLines) _drawMinutesLine(canvas);
-    _drawCenterCircle(canvas);
     canvas.restore();
   }
 
@@ -108,14 +107,6 @@ class BaseClock extends CustomPainter {
     final Offset _pointToPositionText =
         GetOffset.getOffsetWithRadiusAndTheta(radius: _getInnerPointRadiusOfMinuteLine(minute) - 12, theta: theta);
     tp.paint(canvas, Offset(_pointToPositionText.dx - tp.width / 2, _pointToPositionText.dy - tp.height / 2));
-  }
-
-  void _drawCenterCircle(Canvas canvas) {
-    final Paint _paint = Paint()
-      ..color = Colors.white
-      // ..strokeWidth = 6
-      ..style = PaintingStyle.fill;
-    canvas.drawCircle(Offset(0, 0), 8, _paint);
   }
 
   @override

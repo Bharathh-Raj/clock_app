@@ -29,6 +29,12 @@ class Clock extends StatefulWidget {
 
   final List<Color> gradientColorList;
 
+  final double centerCircleRadius;
+  final Color centerCircleColor;
+
+  final Color secondaryCircleColor;
+  final double secondaryCircleRadius;
+
   const Clock({
     Key? key,
     required this.clockRadius,
@@ -36,6 +42,10 @@ class Clock extends StatefulWidget {
     required this.hourHandStrokeWidth,
     required this.minuteHandStrokeWidth,
     required this.secondHandStrokeWidth,
+    this.centerCircleRadius = 8,
+    this.centerCircleColor = Colors.white,
+    this.secondaryCircleRadius = 0,
+    this.secondaryCircleColor = Colors.white,
     this.hourHandColor = Colors.white,
     this.minuteHandColor = Colors.white,
     this.secondHandColor = Colors.white,
@@ -95,6 +105,10 @@ class _ClockState extends State<Clock> {
           builder: (context, snapshot) {
             return CustomPaint(
               painter: ClockHands(
+                secondaryCircleColor: widget.secondaryCircleColor,
+                secondaryCircleRadius: widget.secondaryCircleRadius,
+                centerCircleColor: widget.centerCircleColor,
+                centerCircleRadius: widget.centerCircleRadius,
                 clockRadius: widget.clockRadius,
                 dateTime: _currentTime,
                 hourHandLength: widget.hourHandLength,

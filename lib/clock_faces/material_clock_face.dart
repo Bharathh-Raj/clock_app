@@ -11,9 +11,9 @@ class MaterialClockFace extends StatelessWidget {
       child: Center(
         child: Clock(
           clockRadius: 100,
-          hourHandLength: 50,
-          minuteHandLength: 70,
-          secondHandLength: 85,
+          hourHandLength: 60,
+          minuteHandLength: 80,
+          secondHandLength: 80,
           showClockFrame: true,
           showMinuteLines: false,
           clockFrameStrokeWidth: 24,
@@ -22,6 +22,9 @@ class MaterialClockFace extends StatelessWidget {
           minuteHandStrokeWidth: 14,
           secondHandStrokeWidth: 4,
           secondHandColor: Colors.red,
+          centerCircleColor: Colors.red,
+          centerCircleRadius: 6,
+          secondaryCircleRadius: 12,
         ),
       ),
     );

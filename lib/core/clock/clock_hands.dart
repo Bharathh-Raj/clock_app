@@ -12,6 +12,10 @@ class ClockHands extends CustomPainter {
   final double hourHandStrokeWidth;
   final double minuteHandStrokeWidth;
   final double secondHandStrokeWidth;
+  final double centerCircleRadius;
+  final Color centerCircleColor;
+  final Color secondaryCircleColor;
+  final double secondaryCircleRadius;
   final Color hourHandColor;
   final Color minuteHandColor;
   final Color secondHandColor;
@@ -26,6 +30,10 @@ class ClockHands extends CustomPainter {
     required this.hourHandStrokeWidth,
     required this.minuteHandStrokeWidth,
     required this.secondHandStrokeWidth,
+    required this.centerCircleRadius,
+    required this.centerCircleColor,
+    required this.secondaryCircleColor,
+    required this.secondaryCircleRadius,
     required this.minuteHandColor,
     required this.secondHandColor,
     required this.hourHandColor,
@@ -48,7 +56,9 @@ class ClockHands extends CustomPainter {
     canvas.translate(clockRadius, clockRadius);
     if (showHourHand) _drawHoursHand(canvas);
     if (showMinuteHand) _drawMinuteHand(canvas);
+    _drawSecondaryCenterCircle(canvas);
     if (showSecondHand) _drawSecondHand(canvas);
+    _drawCenterCircle(canvas);
     canvas.restore();
   }
 
@@ -92,6 +102,20 @@ class ClockHands extends CustomPainter {
         GetOffset.getOffsetWithRadiusAndTheta(
             radius: secondHandLength, theta: dateTime.second * Constants.angleBetweenEachMinuteLine),
         _paint);
+  }
+
+  void _drawCenterCircle(Canvas canvas) {
+    final Paint _paint = Paint()
+      ..color = centerCircleColor
+      ..style = PaintingStyle.fill;
+    canvas.drawCircle(Offset(0, 0), centerCircleRadius, _paint);
+  }
+
+  void _drawSecondaryCenterCircle(Canvas canvas) {
+    final Paint _paint = Paint()
+      ..color = secondaryCircleColor
+      ..style = PaintingStyle.fill;
+    canvas.drawCircle(Offset(0, 0), secondaryCircleRadius, _paint);
   }
 
   @override

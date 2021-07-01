@@ -14,18 +14,11 @@ class SamsungClockFace extends StatelessWidget {
           hourHandLength: 60,
           minuteHandLength: 80,
           secondHandLength: 85,
-          gradientColorList: [Color(0xff7f00ff), Color(0xffE100FF)],
+          gradientColorList: [Color(0xff555555), Color(0xff3D3D3D)],
           hourHandStrokeWidth: 6,
           minuteHandStrokeWidth: 6,
           secondHandStrokeWidth: 2,
         ),
-        // child: Clock(
-        //   clockRadius: 120,
-        //   hourHandLength: 60,
-        //   minuteHandLength: 80,
-        //   secondHandLength: 85,
-        //   gradientColorList: [Color(0xff555555), Color(0xff3D3D3D)],
-        // ),
       ),
     );
   }
