@@ -1,5 +1,5 @@
+import 'package:clock_app/core/clock/analog_clock_hands.dart';
 import 'package:clock_app/core/clock/base_clock.dart';
-import 'package:clock_app/core/clock/clock_hands.dart';
 import 'package:flutter/material.dart';
 
 class Clock extends StatefulWidget {
@@ -39,9 +39,9 @@ class Clock extends StatefulWidget {
     Key? key,
     required this.clockRadius,
     required this.gradientColorList,
-    required this.hourHandStrokeWidth,
-    required this.minuteHandStrokeWidth,
-    required this.secondHandStrokeWidth,
+    this.hourHandStrokeWidth = 6,
+    this.minuteHandStrokeWidth = 6,
+    this.secondHandStrokeWidth = 2,
     this.centerCircleRadius = 8,
     this.centerCircleColor = Colors.white,
     this.secondaryCircleRadius = 0,
@@ -104,7 +104,7 @@ class _ClockState extends State<Clock> {
           stream: _timer,
           builder: (context, snapshot) {
             return CustomPaint(
-              painter: ClockHands(
+              painter: AnalogClockHands(
                 secondaryCircleColor: widget.secondaryCircleColor,
                 secondaryCircleRadius: widget.secondaryCircleRadius,
                 centerCircleColor: widget.centerCircleColor,

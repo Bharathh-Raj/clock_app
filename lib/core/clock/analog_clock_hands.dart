@@ -5,7 +5,7 @@ import 'package:clock_app/core/get_offset.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class ClockHands extends CustomPainter {
+class AnalogClockHands extends CustomPainter {
   final double hourHandLength;
   final double minuteHandLength;
   final double secondHandLength;
@@ -26,7 +26,7 @@ class ClockHands extends CustomPainter {
   final bool showMinuteHand;
   final bool showHourHand;
 
-  ClockHands({
+  AnalogClockHands({
     required this.hourHandStrokeWidth,
     required this.minuteHandStrokeWidth,
     required this.secondHandStrokeWidth,
@@ -119,5 +119,5 @@ class ClockHands extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant ClockHands oldDelegate) => dateTime.second != oldDelegate.dateTime.second;
+  bool shouldRepaint(covariant AnalogClockHands oldDelegate) => dateTime.second != oldDelegate.dateTime.second;
 }

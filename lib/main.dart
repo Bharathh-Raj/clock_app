@@ -1,6 +1,7 @@
 import 'package:clock_app/clock_faces/samsung_clock_face.dart';
 import 'package:flutter/material.dart';
 
+import 'clock_faces/digital_clock_face.dart';
 import 'clock_faces/material_clock_face.dart';
 
 void main() {
@@ -26,6 +27,8 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return PageView(
       children: [
+        DigitalClockFace(),
+        NeonClockFace(),
         MaterialClockFace(),
         SamsungClockFace(),
       ],
