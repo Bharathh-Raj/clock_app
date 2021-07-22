@@ -6,19 +6,21 @@ class DigitalClockText extends StatelessWidget {
   final Color hourColor;
   final Color minuteColor;
   final Color secondColor;
+  final Color seperatorColor;
 
   DigitalClockText({
     required this.dateTime,
     required this.hourColor,
     required this.secondColor,
     required this.minuteColor,
+    required this.seperatorColor,
   });
 
   @override
   Widget build(BuildContext context) {
     final Text _separatorText = Text(
       ":",
-      style: TextStyle(color: Colors.white, fontSize: 36),
+      style: TextStyle(color: seperatorColor, fontSize: 36),
       textAlign: TextAlign.center,
     );
     return Row(

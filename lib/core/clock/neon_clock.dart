@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'digital_clock_text.dart';
 
-const Color _color = Color(0xffEFDD21);
+const Color _color = Color(0xff36EEE0);
 
 class NeonClock extends StatefulWidget {
   final double clockRadius;
@@ -38,6 +38,7 @@ class _NeonClockState extends State<NeonClock> {
           painter: ArcHand(value: _currentTime.hour / 24, arcColor: _color, enableNeonEffect: true),
           // painter: ArcHand(value: _currentTime.hour / 24, arcColor: Color(0xff23dcd6)),
           child: DigitalClockText(
+            seperatorColor: Color(0xff35838D),
             dateTime: _currentTime,
             hourColor: _color,
             minuteColor: _color,

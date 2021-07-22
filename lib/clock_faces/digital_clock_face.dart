@@ -27,7 +27,7 @@ class NeonClockFace extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        color: Color(0xff1A1F39),
+        color: Color(0xff012E33),
         child: Center(
           child: NeonClock(
             clockRadius: 136,

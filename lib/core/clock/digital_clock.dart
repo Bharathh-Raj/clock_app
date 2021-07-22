@@ -54,6 +54,7 @@ class _DigitalClockState extends State<DigitalClock> {
                       painter: ArcHand(value: _currentTime.second / 60, arcColor: _secondColor),
                       // painter: ArcHand(value: _currentTime.second / 60, arcColor: Color(0xff1de230)),
                       child: DigitalClockText(
+                        seperatorColor: Colors.grey,
                         hourColor: _hourColor,
                         minuteColor: _minuteColor,
                         secondColor: _secondColor,
